@@ -158,7 +158,7 @@ export default function Home() {
           </div>
 
           {/* Floating member cards */}
-          <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-4">
+          <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-4 cursor-normal">
             {featuredMembers.slice(0, 4).map((member, i) => (
               <motion.div
                 key={member.id}

@@ -12,20 +12,21 @@ export function OpcIcon({ size = 18, color = "white" }: OpcIconProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <circle cx="9" cy="5.5" r="2.5" fill={color} />
+      <circle cx="10" cy="3" r="2" fill={color} />
       <path
-        d="M3.5 16C3.5 12.134 6.134 9 9 9C11.866 9 14.5 12.134 14.5 16"
+        d="M6.5 8L10 5.5V14.5"
         stroke={color}
-        strokeWidth="2"
+        strokeWidth="2.2"
         strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <line
-        x1="6"
-        y1="16"
-        x2="12"
-        y2="16"
+        x1="6.5"
+        y1="14.5"
+        x2="13.5"
+        y2="14.5"
         stroke={color}
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
       />
     </svg>

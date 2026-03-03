@@ -39,37 +39,37 @@ export function MemberCard({ member }: MemberCardProps) {
       className="group block bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     >
       {/* Cover image */}
-      <div className="relative h-32 overflow-hidden">
-        <img
-          src={member.cover}
-          alt={member.company}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+      <div className="relative h-32">
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={member.cover}
+            alt={member.company}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+        </div>
         <div className="absolute top-3 right-3">
           <span className={`px-2 py-1 rounded-full text-xs font-medium ${colorClass}`}>
             {categoryLabel}
           </span>
         </div>
+        <img
+          src={member.avatar}
+          alt={member.name}
+          className="absolute left-5 -bottom-7 z-10 w-14 h-14 rounded-xl object-cover border-2 border-white shadow-md"
+        />
       </div>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="p-5 pt-10">
         {/* Avatar + name */}
-        <div className="flex items-start gap-3 -mt-10 mb-4">
-          <img
-            src={member.avatar}
-            alt={member.name}
-            className="w-14 h-14 rounded-xl object-cover border-2 border-white shadow-md flex-shrink-0"
-          />
-          <div className="pt-6">
-            <div className="flex items-center gap-1">
-              <h3 className="text-gray-900" style={{ fontSize: "0.95rem", fontWeight: 600 }}>
-                {member.name}
-              </h3>
-            </div>
-            <p className="text-gray-500" style={{ fontSize: "0.75rem" }}>{member.company}</p>
+        <div className="mb-4">
+          <div className="flex items-center gap-1">
+            <h3 className="text-gray-900" style={{ fontSize: "0.95rem", fontWeight: 600 }}>
+              {member.name}
+            </h3>
           </div>
+          <p className="text-gray-500" style={{ fontSize: "0.75rem" }}>{member.company}</p>
         </div>
 
         {/* Tagline */}

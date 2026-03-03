@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowRight, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { OpcIcon } from "../components/OpcIcon";
 
 export default function About() {
   const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function About() {
       <section className="bg-white py-20 border-b border-gray-100">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="w-14 h-14 bg-black rounded-2xl flex items-center justify-center mx-auto mb-8">
-            <Zap className="w-7 h-7 text-white" fill="white" />
+            <OpcIcon size={28} color="white" />
           </div>
           <h1
             className="text-gray-900 mb-6"
