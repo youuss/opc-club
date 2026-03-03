@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
 import { MemberCard } from "../components/MemberCard";
+import { OpcIcon } from "../components/OpcIcon";
 import { fetchMembers } from "@/lib/api-client";
 import type { Member } from "@/lib/members";
 
@@ -441,38 +442,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 bg-white rounded-lg flex items-center justify-center">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 18 18"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {/* Head */}
-                  <circle
-                    cx="9"
-                    cy="5.5"
-                    r="2.5"
-                    fill="black"
-                  />
-                  {/* Body / company base */}
-                  <path
-                    d="M3.5 16C3.5 12.134 6.134 9 9 9C11.866 9 14.5 12.134 14.5 16"
-                    stroke="black"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                  {/* "1" accent line under feet — subtle company floor */}
-                  <line
-                    x1="6"
-                    y1="16"
-                    x2="12"
-                    y2="16"
-                    stroke="black"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                <OpcIcon color="black" />
               </div>
               <span
                 className="text-white"

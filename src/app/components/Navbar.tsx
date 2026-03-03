@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Globe } from "lucide-react";
+import { OpcIcon } from "./OpcIcon";
 import { useTranslation } from "react-i18next";
 
 export function Navbar() {
@@ -32,11 +33,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="9" cy="5.5" r="2.5" fill="white" />
-                <path d="M3.5 16C3.5 12.134 6.134 9 9 9C11.866 9 14.5 12.134 14.5 16" stroke="white" strokeWidth="2" strokeLinecap="round" />
-                <line x1="6" y1="16" x2="12" y2="16" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
+              <OpcIcon />
             </div>
             <span className="text-black" style={{ fontSize: "1.1rem", fontWeight: 700, letterSpacing: "-0.02em" }}>
               OPC Club

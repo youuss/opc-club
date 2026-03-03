@@ -1,3 +1,5 @@
+<img src="public/opc-icon.svg" width="32" height="32" alt="OPC Club" />
+
 # OPC Club — 一人公司俱乐部
 
 > 一个人，就是一家公司。
