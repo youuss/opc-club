@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import {
   ArrowRight,
   Users,
@@ -6,14 +8,23 @@ import {
   TrendingUp,
   Quote,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { motion } from "motion/react";
 import { MemberCard } from "../components/MemberCard";
-import { members } from "../data/members";
+import { fetchMembers } from "@/lib/api-client";
+import type { Member } from "@/lib/members";
 
 export default function Home() {
   const { t } = useTranslation();
-  const featuredMembers = members.slice(0, 6);
+  const [featuredMembers, setFeaturedMembers] = useState<Member[]>([]);
+
+  useEffect(() => {
+    fetchMembers().then((data) => {
+      console.log('data',data);
+      setFeaturedMembers(data.slice(0, 6))
+    });
+  }, []);
 
   const stats = [
     { value: "120+", label: t("home.statsSection.members") },
@@ -128,7 +139,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
-                to="/members"
+                href="/members"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
                 style={{ fontSize: "0.95rem" }}
               >
@@ -136,7 +147,7 @@ export default function Home() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                to="/about"
+                href="/about"
                 className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
                 style={{ fontSize: "0.95rem" }}
               >
@@ -147,7 +158,7 @@ export default function Home() {
 
           {/* Floating member cards */}
           <div className="hidden lg:flex absolute right-8 top-1/2 -translate-y-1/2 flex-col gap-4">
-            {members.slice(0, 4).map((member, i) => (
+            {featuredMembers.slice(0, 4).map((member, i) => (
               <motion.div
                 key={member.id}
                 className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-lg border border-gray-100"
@@ -303,7 +314,7 @@ export default function Home() {
               </p>
             </div>
             <Link
-              to="/members"
+              href="/members"
               className="hidden sm:inline-flex items-center gap-2 text-black hover:text-gray-600 transition-colors"
               style={{ fontSize: "0.9rem", fontWeight: 500 }}
             >
@@ -320,7 +331,7 @@ export default function Home() {
 
           <div className="text-center mt-10 sm:hidden">
             <Link
-              to="/members"
+              href="/members"
               className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition-colors"
               style={{ fontSize: "0.9rem" }}
             >
@@ -414,7 +425,7 @@ export default function Home() {
             {t("home.ctaSection.subtitle")}
           </p>
           <Link
-            to="/members"
+            href="/members"
             className="inline-flex items-center gap-2 px-8 py-4 bg-white text-black rounded-full hover:bg-gray-100 transition-colors"
             style={{ fontSize: "1rem", fontWeight: 600 }}
           >
@@ -475,21 +486,21 @@ export default function Home() {
             </p>
             <div className="flex items-center gap-6">
               <Link
-                to="/"
+                href="/"
                 className="hover:text-white transition-colors"
                 style={{ fontSize: "0.82rem" }}
               >
                 {t("nav.home")}
               </Link>
               <Link
-                to="/members"
+                href="/members"
                 className="hover:text-white transition-colors"
                 style={{ fontSize: "0.82rem" }}
               >
                 {t("nav.members")}
               </Link>
               <Link
-                to="/about"
+                href="/about"
                 className="hover:text-white transition-colors"
                 style={{ fontSize: "0.82rem" }}
               >

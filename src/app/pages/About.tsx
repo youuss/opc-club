@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import { ArrowRight, Zap } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
@@ -187,7 +189,7 @@ export default function About() {
             {t("about.ctaSubtitle")}
           </p>
           <Link
-            to="/members"
+            href="/members"
             className="inline-flex items-center gap-2 px-7 py-3.5 bg-white text-black rounded-full hover:bg-gray-100 transition-colors"
             style={{ fontSize: "0.95rem", fontWeight: 600 }}
           >

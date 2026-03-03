@@ -1,4 +1,8 @@
-import { useParams, Link } from "react-router";
+"use client";
+
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
+import Link from "next/link";
 import {
   ArrowLeft,
   MapPin,
@@ -12,7 +16,8 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { members } from "../data/members";
+import { fetchMemberById, fetchMembers } from "@/lib/api-client";
+import type { Member } from "@/lib/members";
 
 const categoryColors: Record<string, string> = {
   "技术开发": "bg-blue-50 text-blue-700 border-blue-100",
@@ -33,16 +38,51 @@ const categoryI18nKey: Record<string, string> = {
 };
 
 export default function MemberDetail() {
-  const { id } = useParams();
+  const params = useParams();
+  const id = params.id as string;
   const { t } = useTranslation();
-  const member = members.find((m) => m.id === id);
+  const [member, setMember] = useState<Member | null>(null);
+  const [otherMembers, setOtherMembers] = useState<Member[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!member) {
+  useEffect(() => {
+    Promise.all([fetchMemberById(id), fetchMembers()])
+      .then(([m, all]) => {
+        if (!m) { setNotFound(true); return; }
+        setMember(m);
+        setOtherMembers(
+          all.filter((x) => x.id !== m.id && x.category === m.category).slice(0, 3)
+        );
+      })
+      .finally(() => setLoading(false));
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="pt-16 min-h-screen bg-white">
+        <div className="h-56 md:h-72 bg-gray-100 animate-pulse" />
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12">
+          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-sm">
+            <div className="flex gap-4">
+              <div className="w-20 h-20 rounded-2xl bg-gray-100 animate-pulse flex-shrink-0" />
+              <div className="flex-1 space-y-3 pt-2">
+                <div className="h-6 bg-gray-100 rounded animate-pulse w-1/3" />
+                <div className="h-4 bg-gray-100 rounded animate-pulse w-1/4" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (notFound || !member) {
     return (
       <div className="pt-16 min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-gray-700 mb-4">Member not found</h2>
-          <Link to="/members" className="text-black underline">
+          <Link href="/members" className="text-black underline">
             {t("common.backToMembers")}
           </Link>
         </div>
@@ -52,9 +92,6 @@ export default function MemberDetail() {
 
   const colorClass = categoryColors[member.category] || "bg-gray-50 text-gray-700 border-gray-100";
   const categoryLabel = t(categoryI18nKey[member.category] || member.category);
-  const otherMembers = members
-    .filter((m) => m.id !== member.id && m.category === member.category)
-    .slice(0, 3);
 
   return (
     <div className="pt-16 min-h-screen bg-white">
@@ -69,7 +106,7 @@ export default function MemberDetail() {
         <div className="absolute bottom-0 left-0 right-0 px-4 sm:px-6 lg:px-8 pb-6">
           <div className="max-w-5xl mx-auto">
             <Link
-              to="/members"
+              href="/members"
               className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-4 transition-colors"
               style={{ fontSize: "0.85rem" }}
             >
@@ -327,7 +364,7 @@ export default function MemberDetail() {
                   {otherMembers.map((m) => (
                     <Link
                       key={m.id}
-                      to={`/members/${m.id}`}
+                      href={`/members/${m.id}`}
                       className="flex items-center gap-3 group"
                     >
                       <img

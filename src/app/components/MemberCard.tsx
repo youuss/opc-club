@@ -1,4 +1,6 @@
-import { Link } from "react-router";
+"use client";
+
+import Link from "next/link";
 import { MapPin, ArrowUpRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Member } from "../data/members";
@@ -33,7 +35,7 @@ export function MemberCard({ member }: MemberCardProps) {
 
   return (
     <Link
-      to={`/members/${member.id}`}
+      href={`/members/${member.id}`}
       className="group block bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
     >
       {/* Cover image */}

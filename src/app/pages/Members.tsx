@@ -1,8 +1,11 @@
-import { useState } from "react";
+"use client";
+
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { MemberCard } from "../components/MemberCard";
-import { members } from "../data/members";
+import { fetchMembers } from "@/lib/api-client";
+import type { Member } from "@/lib/members";
 
 // Category display keys for filter buttons
 const CATEGORIES = [
@@ -27,8 +30,16 @@ const categoryKeyToData: Record<string, string> = {
 
 export default function Members() {
   const { t } = useTranslation();
+  const [members, setMembers] = useState<Member[]>([]);
+  const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [activeCategoryKey, setActiveCategoryKey] = useState("all");
+
+  useEffect(() => {
+    fetchMembers()
+      .then(setMembers)
+      .finally(() => setLoading(false));
+  }, []);
 
   const filtered = members.filter((m) => {
     const matchesCategory =
@@ -114,7 +125,13 @@ export default function Members() {
 
       {/* Members grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {filtered.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <div key={i} className="bg-gray-100 rounded-2xl h-64 animate-pulse" />
+            ))}
+          </div>
+        ) : filtered.length > 0 ? (
           <>
             <p className="text-gray-400 mb-6" style={{ fontSize: "0.85rem" }}>
               {t("common.total", { count: filtered.length })}
