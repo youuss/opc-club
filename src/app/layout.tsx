@@ -6,6 +6,11 @@ import { Navbar } from "@/app/components/Navbar";
 export const metadata: Metadata = {
   title: "OPC Club - 一人公司俱乐部",
   description: "独立开发者、自由职业者、一人公司创始人的展示与连接平台",
+  icons: {
+    icon: "/opc-icon.svg",
+    shortcut: "/opc-icon.svg",
+    apple: "/opc-icon.svg",
+  },
 };
 
 export default function RootLayout({
