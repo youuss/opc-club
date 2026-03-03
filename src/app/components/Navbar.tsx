@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Globe } from "lucide-react";
+import { Menu, X, Globe, Github } from "lucide-react";
 import { OpcIcon } from "./OpcIcon";
 import { useTranslation } from "react-i18next";
 
@@ -75,6 +75,16 @@ export function Navbar() {
             >
               {t("nav.join")}
             </Link>
+
+            <a
+              href="https://github.com/youuss/opc-club"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-200 text-gray-600 hover:border-gray-400 hover:text-black transition-colors"
+              title="GitHub"
+            >
+              <Github className="w-4 h-4" />
+            </a>
           </div>
 
           {/* Mobile: lang switcher + hamburger */}
